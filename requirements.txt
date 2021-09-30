@@ -1,0 +1,8 @@
+ipython~=7.28.0
+cvlib
+opencv-python
+tensorflow
+fastapi
+uvicorn
+nest_asyncio
+python-multipart
