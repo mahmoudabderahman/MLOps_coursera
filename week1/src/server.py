@@ -37,7 +37,7 @@ def home():
 # This endpoint handles all the logic necessary for the object detection to work.
 # It requires the desired model and the image in which to perform object detection.
 @app.post("/predict")
-def prediction(model: Model, file: UploadFile = File(...)):
+def prediction(model: Model, confidence: str, file: UploadFile = File(...)):
     # 1. VALIDATE INPUT FILE
     filename = file.filename
     fileExtension = filename.split(".")[-1] in ("jpg", "jpeg", "png")
@@ -61,7 +61,7 @@ def prediction(model: Model, file: UploadFile = File(...)):
     # 3. RUN OBJECT DETECTION MODEL
 
     # Run object detection
-    bbox, label, conf = cvlib.detect_common_objects(image, model=model, confidence=0.2)
+    bbox, label, conf = cvlib.detect_common_objects(image, model=model, confidence=float(confidence))
 
     # Create image that includes bounding boxes and labels
     output_image = draw_bbox(image, bbox, label, conf)
